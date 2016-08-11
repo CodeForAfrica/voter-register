@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>Kenyan Voters</title>
+<link rel="icon"  type="image/ico" href="favicon.ico">
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/fusioncharts.js"></script>
+<script type="text/javascript" src="http://static.fusioncharts.com/code/latest/themes/fusioncharts.theme.fint.js?cacheBust=56"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style>
+	.title {
+		font-size:24px;
+		text-decoration:underline;
+		text-transform:uppercase;
+	}
+	.total span {
+		color:#333;
+		font-size:20px;
+	}
+	.nums span {
+		color:#333;
+		font-size:20px;
+	}
+	.num span {
+		color:#333;
+		font-size:16px;
+	}
+</style>
+
+</head>
+<body>
+	<div class="">
+		<div class="row">
+			<div class="col-md-6">
+				<div id="chartdiv" style="width:100%;height:100%;border-right:1px solid #ccc;"></div>
+			</div>
+			<div class="col-md-6" style="padding:10px;">
+				<div class="row" id="county" style="height:40%;"></div>
+				<hr>
+				<div class="row">
+					<div class="col-md-12"  id="constituencies"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/const.js"></script>
+	<script src="js/custom.js"></script>
+	<script src="https://www.amcharts.com/lib/3/ammap.js"></script>
+	<script src="https://www.amcharts.com/lib/3/maps/js/kenyaHigh.js"></script>
+</body>
+</html>
