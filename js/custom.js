@@ -13,7 +13,7 @@ jQuery(function($) {
 	});
 });
 
-COUNTY_ARR = [["KE-28","Mombasa"],["KE-19","Kwale"],["KE-39","Taita-Taveta"],["KE-94","Kilifi"],["KE-21","Lamu"],["KE-23","Makueni"],["KE-30","Nairobi"],["KE-10","Kajiado"],["KE-22","Machakos"],["KE-13","Kiambu"],["KE-27","Migori"],["KE-29","Muranga"],["KE-16","Kisii"],["KE-33","Narok"],["KE-34","Nyamira"],["KE-02","Bomet"],["KE-08","Homa-Bay"],["KE-06","Embu"],["KE-15","Kirinyaga"],["KE-18","Kitui"],["KE-40","Tana-River"],["KE-36","Nyeri"],["KE-17","Kisumu"],["KE-12","Kericho"],["KE-41","Tharaka"],["KE-35","Nyandarua"],["KE-45","Vihiga"],["KE-31","Nakuru"],["KE-38","Siaya"],["KE-32","Nandi"],["KE-26","Meru"],["KE-04","Busia"],["KE-20","Laikipia"],["KE-11","Kakamega"],["KE-44","Uasin-Gishu"],["KE-07","Garissa"],["KE-03","Bungoma"],["KE-42","Trans-Nzoia"],["KE-05","Elgeyo-Marakwet"],["KE-01","Baringo"],["KE-09","Isiolo"],["KE-37","Samburu"],["KE-47","West-Pokot"],["KE-46","Wajir"],["KE-24","Mandera"],["KE-25","Marsabit"],["KE-43","Turkana"]]
+COUNTY_ARR = [["KE-28","Mombasa"],["KE-19","Kwale"],["KE-39","Taita-Taveta"],["KE-94","Kilifi"],["KE-21","Lamu"],["KE-23","Makueni"],["KE-30","Nairobi"],["KE-10","Kajiado"],["KE-22","Machakos"],["KE-13","Kiambu"],["KE-27","Migori"],["KE-29","Muranga"],["KE-16","Kisii"],["KE-33","Narok"],["KE-34","Nyamira"],["KE-02","Bomet"],["KE-08","Homa-Bay"],["KE-06","Embu"],["KE-15","Kirinyaga"],["KE-18","Kitui"],["KE-40","Tana-River"],["KE-36","Nyeri"],["KE-17","Kisumu"],["KE-12","Kericho"],["KE-41","Tharaka-Nithi"],["KE-35","Nyandarua"],["KE-45","Vihiga"],["KE-31","Nakuru"],["KE-38","Siaya"],["KE-32","Nandi"],["KE-26","Meru"],["KE-04","Busia"],["KE-20","Laikipia"],["KE-11","Kakamega"],["KE-44","Uasin-Gishu"],["KE-07","Garissa"],["KE-03","Bungoma"],["KE-42","Trans-Nzoia"],["KE-05","Elgeyo-Marakwet"],["KE-01","Baringo"],["KE-09","Isiolo"],["KE-37","Samburu"],["KE-47","West-Pokot"],["KE-46","Wajir"],["KE-24","Mandera"],["KE-25","Marsabit"],["KE-43","Turkana"]]
 KEMAP_DATA = [{id: 'KE-01', value: 0}, {id: 'KE-02', value: 0}, {id: 'KE-03', value: 0}, {id: 'KE-04', value: 0}, {id: 'KE-05', value: 0}, {id: 'KE-06', value: 0}, {id: 'KE-07', value: 0}, {id: 'KE-08', value: 0}, {id: 'KE-09', value: 0}, {id: 'KE-10', value: 0}, {id: 'KE-11', value: 0}, {id: 'KE-12', value: 0}, {id: 'KE-13', value: 0}, {id: 'KE-94', value: 0}, {id: 'KE-15', value: 0}, {id: 'KE-16', value: 0}, {id: 'KE-17', value: 0}, {id: 'KE-18', value: 0}, {id: 'KE-19', value: 0}, {id: 'KE-20', value: 0}, {id: 'KE-21', value: 0}, {id: 'KE-22', value: 0}, {id: 'KE-23', value: 0}, {id: 'KE-24', value: 0}, {id: 'KE-25', value: 0}, {id: 'KE-26', value: 0}, {id: 'KE-27', value: 0}, {id: 'KE-28', value: 0}, {id: 'KE-29', value: 0}, {id: 'KE-30', value: 0}, {id: 'KE-31', value: 0}, {id: 'KE-32', value: 0}, {id: 'KE-33', value: 0}, {id: 'KE-34', value: 0}, {id: 'KE-35', value: 0}, {id: 'KE-36', value: 0}, {id: 'KE-37', value: 0}, {id: 'KE-38', value: 0}, {id: 'KE-39', value: 0}, {id: 'KE-40', value: 0}, {id: 'KE-41', value: 0}, {id: 'KE-42', value: 0}, {id: 'KE-43', value: 0}, {id: 'KE-44', value: 0}, {id: 'KE-45', value: 0}, {id: 'KE-46', value: 0}, {id: 'KE-47', value: 0}]
 
 function draw_map(data) {
@@ -127,9 +127,11 @@ function draw_bars(id, height, dataset) {
 }
 
 function get_data_and_draw_graphs(county) {
+    console.log(county)
 	$('#county').html('')
 	$('#constituencies').html('')
 	data = REG_DATA[county]
+	console.log(data)
 	$('#county').html(draw_section_template(data['name'], data['name'], data['total'], 0, data['male'], data['female'], data['female-median-age'] ,data['female-mode-age'],data['female-mean-age'], data['male-median-age'] ,data['male-mode-age'],data['male-mean-age'] ))
 	draw_bars(data['name'], 350, data['dataset'])
 	str = ''
@@ -142,6 +144,7 @@ function get_data_and_draw_graphs(county) {
 			str += draw_table_view(f['name'], f['name'], f['total'], 0, f['male'], f['female'], f['female-median-age'] ,f['female-mode-age'],f['female-mean-age'], f['male-median-age'] ,f['male-mode-age'],f['male-mean-age'])
 		}
 	}
+	console.log(str)
 	str +='</tbody></table>'
 	$('#constituencies').html(str)
 }
