@@ -38,6 +38,7 @@ function draw_map(data) {
 		"selectable": true,
 		"outlineColor": "#fff",
 		"rollOverOutlineColor": "#ffe84a",
+		"balloonText": "[[title]]: <strong>[[value]]</strong>"
 	  },
 
 	  "export": {
@@ -89,6 +90,10 @@ function updateMapData(id) {
     return V
 }
 
+function setMapData(data, id, j) {
+    data[k] = {'id': id, 'value':j}
+}
+
 function draw_bars(id, height, dataset) {
 	var fusioncharts = new FusionCharts({
 		type: 'mscolumn2d',
@@ -127,15 +132,13 @@ function draw_bars(id, height, dataset) {
 }
 
 function get_data_and_draw_graphs(county) {
-    console.log(county)
 	$('#county').html('')
 	$('#constituencies').html('')
 	data = REG_DATA[county]
-	console.log(data)
 	$('#county').html(draw_section_template(data['name'], data['name'], data['total'], 0, data['male'], data['female'], data['female-median-age'] ,data['female-mode-age'],data['female-mean-age'], data['male-median-age'] ,data['male-mode-age'],data['male-mean-age'] ))
 	draw_bars(data['name'], 350, data['dataset'])
 	str = ''
-	str += '<table class="table table-striped table-bordered"><thead><th>Constituency</th><th>Male</th><th>Female</th><th>Total</th><th>Median Age(Male)</th><th>Median Age(Female)</th></thead>'
+	str += '<table class="table table-striped table-bordered"><thead><th>Constituency</th><th>Male</th><th>Female</th><th>Total</th><th>Mean Age(Male)</th><th>Mean Age(Female)</th></thead>'
 	str += '<tbody>'
 	for (k in data['constituencies']) {
 		v = data['constituencies'][k]
@@ -144,12 +147,11 @@ function get_data_and_draw_graphs(county) {
 			str += draw_table_view(f['name'], f['name'], f['total'], 0, f['male'], f['female'], f['female-median-age'] ,f['female-mode-age'],f['female-mean-age'], f['male-median-age'] ,f['male-mode-age'],f['male-mean-age'])
 		}
 	}
-	console.log(str)
 	str +='</tbody></table>'
 	$('#constituencies').html(str)
 }
 
-function draw_section_template(id, title, total, pop, male, female, female_median_age, female_mode_age, female_mean_age, male_median_age, male_mode_age, male_mean_age) {
+function draw_section_template(id, title, total, pop, male, female, female_mean_age, female_mode_age, female_mean_age, male_mean_age, male_mode_age, male_mean_age) {
 	str = ''
 	str += '<div class="col-md-12">'
 	str += '<div class="col-md-12 title">'+ title +'</div>'
@@ -157,24 +159,38 @@ function draw_section_template(id, title, total, pop, male, female, female_media
 	//str += '<div class="col-md-12"><span class="fraction">70%</span><span> of population</span><span class="pop">432,322</span></div>'
 	str += '<div class="col-md-6 nums">Male:  <span>'+ commaseparatenumbers(male) +'</span></div>'
 	str += '<div class="col-md-6 nums">Female:  <span>'+ commaseparatenumbers(female) +'</span></div>'
-	str += '<div class="col-md-6 num">Female Median Age:  <span>'+ female_median_age +'</div>'
-	str += '<div class="col-md-6 num">Male Median Age:  <span>'+ male_median_age +'</span></div>'
+	str += '<div class="col-md-6 num">Female Mean Age:  <span>'+ female_mean_age +'</div>'
+	str += '<div class="col-md-6 num">Male Mean Age:  <span>'+ male_mean_age +'</span></div>'
 	str += '<div class="col-md-12" id="'+ id +'"></div>'
 	str += '</div>'
 	return str
 }
 
-function draw_table_view(id, title, total, pop, male, female, female_median_age, female_mode_age, female_mean_age, male_median_age, male_mode_age, male_mean_age) {
+function draw_table_view(id, title, total, pop, male, female, female_mean_age, female_mode_age, female_mean_age, male_mean_age, male_mode_age, male_mean_age) {
 	title = title.trim()
 	str = '<tr><td>'+ title[0].toUpperCase() + title.substring(1) +'</td>'
 	str += '<td class="text-center">'+ commaseparatenumbers(male) +'</td>'
 	str += '<td class="text-center">'+ commaseparatenumbers(female) +'</td>'
 	str += '<td class="text-center">'+ commaseparatenumbers(total) +'</td>'
-	str += '<td class="text-center">'+ male_median_age +'</td>'
-	str += '<td class="text-center">' + female_median_age + '</td></tr>'
+	str += '<td class="text-center">'+ male_mean_age +'</td>'
+	str += '<td class="text-center">' + female_mean_age + '</td></tr>'
 	return str
 }
 
 function commaseparatenumbers(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function get_all_median(gender) {
+	data = KEMAP_DATA
+	for (k in REG_DATA) {
+		if (gender == 'F') {
+			v = REG_DATA[k]['female-median-age']
+		} else  {
+			v = REG_DATA[k]['male-median-age']
+		}
+		s = translateIDtoTitle(k)
+		setMapData(data, s, v)
+	}
+	draw_map(data)
 }
